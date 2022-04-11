@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  compositor-postgres:
+    container_name: compositor-postgres
+    restart: always
+    image: compositor-postgres:1.0.0
+    build:
+      context: ../..
+      dockerfile: docker/compositor.postgres.Dockerfile
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: $COMPOSITOR_POSTGRES_SUPERUSER_PASSWORD
+      POSTGRES_DB_NAME: $COMPOSITOR_POSTGRES_DB_NAME
+      POSTGRES_DB_USER: $COMPOSITOR_POSTGRES_DB_USER
+      POSTGRES_DB_PASSWORD: $COMPOSITOR_POSTGRES_DB_PASSWORD
+    ports:
+      - "5433:5432"
+
+  compositor-postgres-migrations:
+    container_name: compositor-postgres-migrations
+    image: compositor-postgres-migrations:1.0.0
+    build:
+      context: ../..
+      dockerfile: docker/compositor.postgres.migrations.Dockerfile
+    environment:
+      POSTGRES_DB_NAME: $COMPOSITOR_POSTGRES_DB_NAME
+      POSTGRES_DB_USER: $COMPOSITOR_POSTGRES_DB_USER
+      POSTGRES_DB_PASSWORD: $COMPOSITOR_POSTGRES_DB_PASSWORD
+      POSTGRES_DB_HOST: compositor-postgres
+    depends_on:
+      - compositor-postgres
+

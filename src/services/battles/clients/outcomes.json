@@ -1,0 +1,144 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/outcomes/": {
+      "post": {
+        "summary": "Get Outcomes",
+        "operationId": "get_outcomes_outcomes__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OutcomesFilter"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Outcomes Outcomes  Post",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Outcomes"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "Outcomes": {
+        "title": "Outcomes",
+        "required": [
+          "ship",
+          "battle",
+          "result"
+        ],
+        "type": "object",
+        "properties": {
+          "ship": {
+            "title": "Ship",
+            "type": "string"
+          },
+          "battle": {
+            "title": "Battle",
+            "type": "string"
+          },
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        }
+      },
+      "OutcomesFilter": {
+        "title": "OutcomesFilter",
+        "type": "object",
+        "properties": {
+          "ships": {
+            "title": "Ships",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "battles": {
+            "title": "Battles",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "results": {
+            "title": "Results",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

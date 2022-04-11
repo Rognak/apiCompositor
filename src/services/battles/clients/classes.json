@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/classes/": {
+      "post": {
+        "summary": "Get Classes",
+        "operationId": "get_classes_classes__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClassesFilter"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Classes Classes  Post",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Classes"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Classes": {
+        "title": "Classes",
+        "required": [
+          "cls",
+          "type",
+          "country",
+          "num_guns",
+          "bore",
+          "displacement"
+        ],
+        "type": "object",
+        "properties": {
+          "cls": {
+            "title": "Cls",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "num_guns": {
+            "title": "Num Guns",
+            "type": "integer"
+          },
+          "bore": {
+            "title": "Bore",
+            "type": "number"
+          },
+          "displacement": {
+            "title": "Displacement",
+            "type": "integer"
+          }
+        }
+      },
+      "ClassesFilter": {
+        "title": "ClassesFilter",
+        "type": "object",
+        "properties": {
+          "classes": {
+            "title": "Classes",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "countries": {
+            "title": "Countries",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "example": {
+          "countries": [
+            "USA"
+          ],
+          "type": "bb"
+        }
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
